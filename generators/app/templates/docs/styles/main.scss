@@ -1,0 +1,107 @@
+@import 'normalize.css/normalize';
+// @import '../../dist/libraryname';
+
+$color1: rgba(251, 76, 61, 1);
+$color2: rgba(252, 252, 252, 1);
+$color3: rgba(219, 224, 228, 1);
+$color4: rgba(77, 79, 80, 1);
+$color5: rgba(161, 160, 159, 1);
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+::selection {
+  color: $color4;
+  background: $color2;
+}
+
+::-moz-selection {
+  color: $color4;
+  background: $color2;
+}
+
+html {
+  font-size: 10px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  background: $color4;
+}
+
+.wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 18px 18px 80px;
+  margin: 0 auto;
+  text-align: center;
+
+  p {
+    font-size: 2rem;
+    line-height: 1.4;
+    text-align: left;
+    font-family: 'BLOKK';
+    color: tint($color1, 20%);
+  }
+}
+
+.site-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+.site-footer {
+  padding: 18px;
+  text-align: right;
+
+  a {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: $color1;
+  }
+}
+
+.lib-name {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  font-size: 3rem;
+  line-height: .85;
+  color: $color1;
+
+  span {
+    display: block;
+    font-size: .5em;
+    font-weight: normal;
+    text-align: left;
+    color: $color2;
+  }
+}
+
+.back-btn {
+	display: block;
+	position: absolute;
+	left: 0;
+	width: 0;
+	height: 0;
+  text-indent: -10000px;
+
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-right: 10px solid $color1;
+}

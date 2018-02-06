@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "bezet",
+      "authorEmail": "bartosz.zadara@gmail.com",
+      "authorUrl": "github.com/bezet"
+    }
+  }
+}

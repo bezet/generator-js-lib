@@ -1,0 +1,24 @@
+{
+  "name": "@bezet/generator-js-lib",
+  "version": "0.1.1",
+  "description": "Bezet's JavaScript library bootstrap generator for Yeoman.",
+  "author": {
+    "name": "bezet",
+    "email": "bartosz.zadara@gmail.com",
+    "url": "https://github.com/bezet"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "mkdirp": "^0.5.1",
+    "yeoman-generator": "^2.0.1"
+  },
+  "repository": "https://github.com/bezet/generator-js-lib",
+  "license": "MIT"
+}
