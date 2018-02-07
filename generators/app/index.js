@@ -27,7 +27,7 @@ module.exports = class extends Generator {
       {
         type    : 'input',
         name    : 'name',
-        message : 'Your library name (as in package.json)',
+        message : 'Your library name (as in package.json; provide namespace if neeeded)',
         default :  this.appname
       },
       {
@@ -66,6 +66,7 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    this._writingLibraryFiles();
     this._writingDemoFiles();
 //     this._writingScripts();
 //     this._writingStyles();
@@ -77,6 +78,24 @@ module.exports = class extends Generator {
 //     this._writingWebpackConfig();
 //     this._writingModernizrConfig();
 //     this._writingReadme();
+  }
+
+  _writingLibraryFiles() {
+    mkdirp('docs/fonts');
+
+    this.fs.copyTpl(
+      this.templatePath('_package.json'),
+      this.destinationPath('package.json'),
+      {
+        packageName: `${this.props.name}`,
+        unscopedPackageName: `${getUnscopedName(this.props.name)}`,
+        packageDescription: `${this.props.description}`,
+        authorName: `${this.props.authorName}`,
+        authorEmail: `${this.props.authorEmail}`,
+        authorURL: `${this.props.authorURL}`,
+        license: `${this.props.license}`
+      }
+    );
   }
 
   _writingDemoFiles() {
@@ -92,9 +111,12 @@ module.exports = class extends Generator {
       }
     );
 
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('docs/styles/main.scss'),
-      this.destinationPath('docs/styles/main.scss')
+      this.destinationPath('docs/styles/main.scss'),
+      {
+        packageName: `${getUnscopedName(this.props.name)}`
+      }
     );
 
     this.fs.copyTpl(
@@ -108,9 +130,14 @@ module.exports = class extends Generator {
       }
     );
 
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('docs/_package.json'),
-      this.destinationPath('docs/package.json')
+      this.destinationPath('docs/package.json'),
+      {
+        authorName: `${this.props.authorName}`,
+        authorEmail: `${this.props.authorEmail}`,
+        authorURL: `${this.props.authorURL}`
+      }
     );
   }
 
