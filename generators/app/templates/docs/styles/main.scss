@@ -1,5 +1,5 @@
 @import 'normalize.css/normalize';
-// @import '../../dist/libraryname';
+@import '../../dist/<%= packageName %>';
 
 $color1: rgba(251, 76, 61, 1);
 $color2: rgba(252, 252, 252, 1);

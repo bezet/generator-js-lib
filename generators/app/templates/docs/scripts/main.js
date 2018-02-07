@@ -1,1 +1,1 @@
-import <%= importName %> from <%= packageName %>;
+import <%= importName %> from '<%= packageName %>';
