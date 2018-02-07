@@ -1,1 +1,1 @@
-// import library from 'library';
+import <%= importName %> from <%= packageName %>;

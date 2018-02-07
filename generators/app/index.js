@@ -1,29 +1,72 @@
-// 'use strict';
+'use strict';
 
-// const Generator = require('yeoman-generator');
-// const chalk     = require('chalk');
-// const mkdirp    = require('mkdirp');
+const Generator = require('yeoman-generator');
+const chalk     = require('chalk');
+const mkdirp    = require('mkdirp');
+const isScoped  = require('is-scoped');
 
-// module.exports = class extends Generator {
-//   prompting() {
-//     this.log(
-//       'This is a ' + chalk.red('baza-webapp') + ' generator which bootstraps simple ES6-driven project.'
-//     );
+const capitalize = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
 
-//     const prompts = [{
-//       type: 'confirm',
-//       name: 'proceed',
-//       message: 'Shall we proceed?',
-//       default: true
-//     }];
+const pascalCase = (string) => {
+  return string.split('-').map(word => capitalize(word)).join('');
+};
 
-//     return this.prompt(prompts).then(props => {
-//       this.props = props;
-//     });
-//   }
+const getUnscopedName = (name) => {
+  return isScoped(name) ? name.split('/')[1] : name;
+};
 
-//   writing() {
-//     this._writingDummyDirectories();
+module.exports = class extends Generator {
+  prompting() {
+    this.log(
+      'This is a @bezet/' + chalk.red('js-lib') + ' generator which bootstraps a new JavaScript library.'
+    );
+
+    return this.prompt([
+      {
+        type    : 'input',
+        name    : 'name',
+        message : 'Your library name (as in package.json)',
+        default :  this.appname
+      },
+      {
+        type    : 'input',
+        name    : 'description',
+        message : 'Your library\'s description',
+        default : ''
+      },
+      {
+        type    : 'input',
+        name    : 'authorName',
+        message : 'Your name (eg. your nick on GitHub)',
+        default : ''
+      },
+      {
+        type    : 'input',
+        name    : 'authorEmail',
+        message : 'Your e-mail',
+        default : ''
+      },
+      {
+        type    : 'input',
+        name    : 'authorURL',
+        message : 'Your URL (eg. link to a GitHub profile)',
+        default : ''
+      },
+      {
+        type    : 'input',
+        name    : 'license',
+        message : 'Your library\'s license',
+        default : 'MIT'
+      },
+    ]).then((answers) => {
+      this.props = answers;
+    });
+  }
+
+  writing() {
+    this._writingDemoFiles();
 //     this._writingScripts();
 //     this._writingStyles();
 //     this._writingTemplates();
@@ -34,11 +77,42 @@
 //     this._writingWebpackConfig();
 //     this._writingModernizrConfig();
 //     this._writingReadme();
-//   }
+  }
 
-//   _writingDummyDirectories() {
-//     mkdirp('src/images');
-//   }
+  _writingDemoFiles() {
+    mkdirp('docs/fonts');
+    mkdirp('docs/images');
+
+    this.fs.copyTpl(
+      this.templatePath('docs/scripts/main.js'),
+      this.destinationPath('docs/scripts/main.js'),
+      {
+        importName: `${pascalCase(getUnscopedName(this.props.name))}`,
+        packageName: `${this.props.name}`
+      }
+    );
+
+    this.fs.copy(
+      this.templatePath('docs/styles/main.scss'),
+      this.destinationPath('docs/styles/main.scss')
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('docs/index.html'),
+      this.destinationPath('docs/index.html'),
+      {
+        title: {
+          author: this.props.authorName !== '' ? `${this.props.authorName}'s ` : '',
+          libraryName: `${getUnscopedName(this.props.name)}`,
+        }
+      }
+    );
+
+    this.fs.copy(
+      this.templatePath('docs/_package.json'),
+      this.destinationPath('docs/package.json')
+    );
+  }
 
 //   _writingScripts() {
 //     this.fs.copy(
@@ -113,9 +187,9 @@
 //     );
 //   }
 
-//   install() {
-//     this.installDependencies({
-//       bower: false
-//     });
-//   }
-// };
+  install() {
+    this.installDependencies({
+      bower: false
+    });
+  }
+};
