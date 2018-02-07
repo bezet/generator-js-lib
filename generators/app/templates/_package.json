@@ -1,15 +1,17 @@
 {
-  "name": "@bezet/scrollbars",
-  "version": "0.1.1",
-  "description": "A library providing customized scrollbars to a given elements.",
+  "name": "<%= packageName %>",
+  "version": "0.1.0",
+  "description": "<%= packageDescription %>",
+  <% if (authorName !== '' || authorEmail !== '' || authorURL !== '') { %>
   "author": {
-    "name": "bezet",
-    "email": "bartosz.zadara@gmail.com",
-    "url": "https://github.com/bezet"
+    <% if (authorName !== '') { %>"name": "<%= authorName %>",<% } %>
+    <% if (authorEmail !== '') { %>"email": "<%= authorEmail %>",<% } %>
+    <% if (authorURL !== '') { %>"url": "<%= authorURL %>",<% } %>
   },
-  "main": "dist/scrollbars.js",
-  "jsnext:main": "src/scrollbars.js",
-  "module": "src/scrollbars.js",
+  <% } -%>
+  "main": "dist/<%= unscopedPackageName %>.js",
+  "jsnext:main": "src/<%= unscopedPackageName %>.js",
+  "module": "src/<%= unscopedPackageName %>.js",
   "scripts": {
     "demo": "gulp demo",
     "build:dev": "gulp build",
@@ -17,7 +19,7 @@
     "build": "npm run build:prod",
     "serve": "gulp serve",
     "test": "mocha --require babel-core/register",
-    "link": "npm link && cd docs && npm link @bezet/scrollbars && cd ..",
+    "link": "npm link && cd docs && npm link <%= packageName %> && cd ..",
     "install:all": "npm i && cd docs && npm i && cd ..",
     "start": "gulp"
   },
@@ -47,9 +49,11 @@
     "yargs": "^10.0.3"
   },
   "keywords": [
-    "scrollbar"
+    ""
   ],
-  "homepage": "https://bezet.github.io/scrollbars",
-  "repository": "https://github.com/bezet/scrollbars",
-  "license": "MIT"
+  <% if (authorName !== '') { %>
+  "homepage": "https://<%= authorName %>.github.io/<%= unscopedPackageName %>",
+  "repository": "https://github.com/<%= authorName %>/<%= unscopedPackageName %>",
+  <% } -%>
+  "license": "<%= license %>"
 }
