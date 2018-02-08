@@ -2,13 +2,11 @@
   "name": "<%= packageName %>",
   "version": "0.1.0",
   "description": "<%= packageDescription %>",
-  <% if (authorName !== '' || authorEmail !== '' || authorURL !== '') { %>
   "author": {
-    <% if (authorName !== '') { %>"name": "<%= authorName %>",<% } %>
-    <% if (authorEmail !== '') { %>"email": "<%= authorEmail %>",<% } %>
-    <% if (authorURL !== '') { %>"url": "<%= authorURL %>",<% } %>
+    "name": "<%= authorName %>",
+    "email": "<%= authorEmail %>",
+    "url": "<%= authorURL %>"
   },
-  <% } -%>
   "main": "dist/<%= unscopedPackageName %>.js",
   "jsnext:main": "src/<%= unscopedPackageName %>.js",
   "module": "src/<%= unscopedPackageName %>.js",
@@ -54,6 +52,6 @@
   <% if (authorName !== '') { %>
   "homepage": "https://<%= authorName %>.github.io/<%= unscopedPackageName %>",
   "repository": "https://github.com/<%= authorName %>/<%= unscopedPackageName %>",
-  <% } -%>
+  <% } %>
   "license": "<%= license %>"
 }

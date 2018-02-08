@@ -27,20 +27,20 @@ module.exports = class extends Generator {
       {
         type    : 'input',
         name    : 'name',
-        message : 'Your library name (as in package.json; provide namespace if neeeded)',
-        default :  this.appname
+        message : 'Your library name (as in package.json - provide namespace if neeeded)',
+        default : '@anonymous/cool-library'
       },
       {
         type    : 'input',
         name    : 'description',
         message : 'Your library\'s description',
-        default : ''
+        default : 'JavaScript library doing some cool stuff.'
       },
       {
         type    : 'input',
         name    : 'authorName',
         message : 'Your name (eg. your nick on GitHub)',
-        default : ''
+        default : 'anonymous'
       },
       {
         type    : 'input',
@@ -87,12 +87,12 @@ module.exports = class extends Generator {
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
       {
-        packageName: `${this.props.name}`,
-        unscopedPackageName: `${getUnscopedName(this.props.name)}`,
-        packageDescription: `${this.props.description}`,
         authorName: `${this.props.authorName}`,
         authorEmail: `${this.props.authorEmail}`,
         authorURL: `${this.props.authorURL}`,
+        packageName: `${this.props.name}`,
+        packageDescription: `${this.props.description}`,
+        unscopedPackageName: `${getUnscopedName(this.props.name)}`,
         license: `${this.props.license}`
       }
     );
