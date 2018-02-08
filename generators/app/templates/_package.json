@@ -18,7 +18,9 @@
     "serve": "gulp serve",
     "test": "mocha --require babel-core/register",
     "link": "npm link && cd docs && npm link <%= packageName %> && cd ..",
-    "install:all": "npm i && cd docs && npm i && cd ..",
+    "install:demo": "cd docs && npm i && cd ..",
+    "install:all": "npm i && npm run install:demo",
+    "initialize": "npm run install:demo && npm run link",
     "start": "gulp"
   },
   "devDependencies": {

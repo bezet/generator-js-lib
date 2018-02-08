@@ -216,7 +216,14 @@ module.exports = class extends Generator {
 
   install() {
     this.installDependencies({
-      bower: false
+      npm: true,
+      bower: false,
+      yarn: false
     });
+  }
+
+  end() {
+    this.log(chalk.blue('Now we need to run ') + chalk.red('npm run initialize') + chalk.blue(' which will install demo\'s dependencies and symlink your lib so it can be used locally without publishing yet.'));
+    this.spawnCommandSync('npm', ['run', 'initialize']);
   }
 };
