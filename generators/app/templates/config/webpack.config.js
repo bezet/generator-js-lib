@@ -1,9 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
+import isScoped from 'is-scoped';
 import packageInfo from '../package.json';
-
-const rootPath = '../';
-const packageName = (packageInfo.name).split('/')[1];
 
 const capitalize = (word) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -12,6 +10,13 @@ const capitalize = (word) => {
 const pascalCase = (string) => {
   return string.split('-').map(word => capitalize(word)).join('');
 };
+
+const getUnscopedName = (name) => {
+  return isScoped(name) ? name.split('/')[1] : name;
+};
+
+const rootPath = '../';
+const packageName = getUnscopedName(packageInfo.name);
 
 module.exports = {
   cache: true,
