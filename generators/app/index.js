@@ -20,14 +20,14 @@ const getUnscopedName = (name) => {
 module.exports = class extends Generator {
   prompting() {
     this.log(
-      'This is a @bezet/' + chalk.red('js-lib') + ' generator which bootstraps a new JavaScript library.'
+      `This is a @bezet/${chalk.red('js-lib')} generator which bootstraps a new JavaScript library.`
     );
 
     return this.prompt([
       {
         type    : 'input',
         name    : 'name',
-        message : 'Your library name (as in package.json - provide namespace if neeeded)',
+        message : 'Your library name (as in package.json - provide namespace if needed)',
         default : '@anonymous/cool-library'
       },
       {
@@ -71,7 +71,41 @@ module.exports = class extends Generator {
   }
 
   _writingLibraryFiles() {
-    mkdirp('docs/fonts');
+    this.fs.copy(this.templatePath('config/*'), this.destinationPath('config/'));
+    this.fs.copy(this.templatePath('test/*'), this.destinationPath('test/'));
+    this.fs.copy(this.templatePath('./.*'), this.destinationPath('.'));
+    this.fs.copy(this.templatePath('gulpfile.*'), this.destinationPath('.'));
+
+    this.fs.copy(
+      this.templatePath('src/main.js'),
+      this.destinationPath(`src/${getUnscopedName(this.props.name)}.js`)
+    );
+
+    this.fs.copy(
+      this.templatePath('src/main.scss'),
+      this.destinationPath(`src/${getUnscopedName(this.props.name)}.scss`)
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('LICENSE'),
+      this.destinationPath('LICENSE'),
+      {
+        isMIT: (this.license === 'MIT'),
+        name: this.props.name
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('README.md'),
+      this.destinationPath('README.md'),
+      {
+        description: this.props.description,
+        name: this.props.name,
+        unscopedName: getUnscopedName(this.props.name),
+        authorName: this.props.authorName,
+        license: this.props.license
+      }
+    );
 
     this.fs.copyTpl(
       this.templatePath('_package.json'),
@@ -140,7 +174,10 @@ module.exports = class extends Generator {
   }
 
   end() {
-    this.log(chalk.blue('Now we need to run ') + chalk.red('npm run initialize') + chalk.blue(' which will install demo\'s dependencies and symlink your lib so it can be used locally without publishing yet.'));
+    this.log(
+      `${chalk.blue('Now we need to run')} ${chalk.red('npm run initialize')} ${chalk.blue('which will install demo\'s dependencies and symlink your lib so it can be used locally without publishing yet.')}`
+    );
+
     this.spawnCommandSync('npm', ['run', 'initialize']);
   }
 };
