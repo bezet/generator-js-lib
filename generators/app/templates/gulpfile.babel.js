@@ -10,11 +10,15 @@ import { argv } from 'yargs';
 import webpack from 'webpack-stream';
 import browserSync from 'browser-sync';
 import runSequence from 'run-sequence';
-
+import isScoped from 'is-scoped';
 import packageInfo from './package.json';
 
+const getUnscopedName = (name) => {
+  return isScoped(name) ? name.split('/')[1] : name;
+};
+
 const PRODUCTION = argv.production ? true : false;
-const packageName = (packageInfo.name).split('/')[1];
+const packageName = getUnscopedName(packageInfo.name);
 
 
 
