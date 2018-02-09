@@ -44,15 +44,16 @@ body {
   position: relative;
   height: 100%;
   width: 100%;
+  max-width: 640px;
   padding: 18px 18px 80px;
   margin: 0 auto;
   text-align: center;
 
   p {
-    font-size: 2rem;
+    font-size: 1.6rem;
     line-height: 1.4;
     text-align: left;
-    font-family: 'BLOKK';
+    font-family: 'Ubuntu', sans-serif;
     color: tint($color1, 20%);
   }
 }
