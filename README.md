@@ -1,5 +1,5 @@
 # generator-js-lib [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Bezet's JavaScript library bootstrap generator for Yeoman.
+> bezet's generator for Yeoman bootstrapping a new JavaScript library.
 
 
 ## Installation
@@ -12,7 +12,7 @@ npm i @bezet/generator-js-lib
 ## Usage
 
 ```bash
-npm i @bezet/generator-js-lib
+yo @bezet/js-lib
 ```
 
 ## License
