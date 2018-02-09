@@ -12,6 +12,7 @@ npm i @bezet/generator-js-lib
 ## Usage
 
 ```bash
+mkdir awesome-new-lib && cd awesome-new-lib
 yo @bezet/js-lib
 ```
 
