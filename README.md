@@ -1,5 +1,5 @@
 # generator-js-lib [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> bezet's generator for Yeoman bootstrapping a new JavaScript library.
+> A generator for Yeoman bootstrapping a new JavaScript library.
 
 
 ## Installation
